@@ -34,6 +34,7 @@
     Connection con = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+    boolean hasPurchasedCourse = false;
 
     try {
         String Driver = application.getInitParameter("Driver");
@@ -43,6 +44,7 @@
 
         Class.forName(Driver);
         con = DriverManager.getConnection(Database, Username, Password);
+
         pst = con.prepareStatement("SELECT * FROM student_registration WHERE semail = ?");
         pst.setString(1, em);
         rs = pst.executeQuery();
@@ -60,6 +62,14 @@
             if (image != null) {
                 base64Image = Base64.getEncoder().encodeToString(image);
                 Profile = "data:image/jpeg;base64," + base64Image;
+            }
+
+            // Check if the student has purchased any courses
+            pst = con.prepareStatement("SELECT COUNT(*) FROM student_payment WHERE sid = ?");
+            pst.setInt(1, sid);
+            rs = pst.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                hasPurchasedCourse = true;
             }
         }
     } catch (Exception e) {
@@ -80,62 +90,64 @@
     <title>Title</title>
 </head>
 <body>
-    <!-- Nav START -->
-    <nav class="navbar navbar-expand-xl z-index-9">
-        <div class="container">
-            <!-- Logo START -->
-            <a class="navbar-brand" href="./?sp_name=hm">
-                <img class="light-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
-                <img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
-            </a>
-            <!-- Logo END -->
+<!-- Nav START -->
+<nav class="navbar navbar-expand-xl z-index-9">
+    <div class="container">
+        <!-- Logo START -->
+        <a class="navbar-brand" href="./?sp_name=hm">
+            <img class="light-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
+            <img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
+        </a>
+        <!-- Logo END -->
 
-            <!-- Responsive navbar toggler -->
-            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-animation">
-					<span></span>
-					<span></span>
-					<span></span>
-				</span>
-            </button>
+        <!-- Responsive navbar toggler -->
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-animation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+        </button>
 
-            <!-- Main navbar START -->
-            <div class="navbar-collapse collapse" id="navbarCollapse">
+        <!-- Main navbar START -->
+        <div class="navbar-collapse collapse" id="navbarCollapse">
 
-                <!-- Nav Main menu START -->
-                <ul class="navbar-nav navbar-nav-scroll ms-auto">
-                    <!-- Nav item 1 Demos -->
-                    <li class="nav-item"><a class="nav-link" href="./?sp_name=hm">Home</a></li>
+            <!-- Nav Main menu START -->
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+                <!-- Nav item 1 Demos -->
+                <li class="nav-item"><a class="nav-link" href="./?sp_name=hm">Home</a></li>
 
-                    <!-- Nav item 2 Eduport Business -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="demoMenu" data-bs-toggle="dropdown" aria-expanded="false">Courses</a>
-                        <ul class="dropdown-menu" aria-labelledby="demoMenu">
-                            <li> <a class="dropdown-item" href="./?sp_name=fc">Free Course</a> </li>
-                            <li> <a class="dropdown-item" href="./?sp_name=pc">Paid Course</a> </li>
-                        </ul>
-                    </li>
-                    <!-- Nav item 3 My learning -->
-                    <li class="nav-item dropdown"><a class="nav-link" href="./?sp_name=fl">Faculty</a></li>
+                <!-- Nav item 2 Eduport Business -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="demoMenu" data-bs-toggle="dropdown" aria-expanded="false">Courses</a>
+                    <ul class="dropdown-menu" aria-labelledby="demoMenu">
+                        <li> <a class="dropdown-item" href="./?sp_name=fc">Free Course</a> </li>
+                        <li> <a class="dropdown-item" href="./?sp_name=pc">Paid Course</a> </li>
+                        <% if (hasPurchasedCourse) { %>
+                        <li> <a class="dropdown-item" href="./?sp_name=pc">Purchased Course</a> </li>
+                        <% } %>
+                    </ul>
+                </li>
+                <!-- Nav item 3 My learning -->
+                <li class="nav-item dropdown"><a class="nav-link" href="./?sp_name=fl">Faculty</a></li>
 
-                    <!-- Nav item 1 link -->
+                <!-- Nav item 1 link -->
+                <!-- Nav item 3 link-->
+                <li class="nav-item"><a class="nav-link" href="./?sp_name=au">About Us</a></li>
+
+                <!-- Nav item 4 link-->
+                <li class="nav-item"><a class="nav-link" href="./?sp_name=cu">Contact Us</a></li>
+
+            </ul>
+            <!-- Nav Main menu END -->
+        </div>
+        <!-- Main navbar END -->
+
+        <!-- Profile and notification START -->
+        <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
 
 
-                    <!-- Nav item 3 link-->
-                    <li class="nav-item"><a class="nav-link" href="./?sp_name=au">About Us</a></li>
-
-                    <!-- Nav item 4 link-->
-                    <li class="nav-item"><a class="nav-link" href="./?sp_name=cu">Contact Us</a></li>
-
-                </ul>
-                <!-- Nav Main menu END -->
-            </div>
-            <!-- Main navbar END -->
-
-            <!-- Profile and notification START -->
-            <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
-
-<%--   ===========   Retrive The Email From the Sessions     ========== --%>
+        <%--   ===========   Retrive The Email From the Sessions     ========== --%>
 
 
 
@@ -165,7 +177,7 @@
                         </li>
                         <!-- Links -->
                         <li> <hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="instructor-edit-profile.html"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="./?sp_name=vp"><i class="bi bi-person fa-fw me-2"></i>View Profile</a></li>
                         <li><a class="dropdown-item bg-danger-soft-hover" href="<%= request.getContextPath() %>/Login.jsp"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
                         <li> <hr class="dropdown-divider"></li>
                         <!-- Dark mode options START -->

@@ -218,9 +218,9 @@
     <jsp:include page="./Pages/CoursePlay.jsp"/>
     <%
             break;
-        case "Faculty":
+        case "vp":
     %>
-    <jsp:include page="/Pages/Faculty.jsp" />
+    <jsp:include page="/Pages/ViewProfile.jsp" />
     <%
             break;
         case "FacultyDet":
