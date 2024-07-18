@@ -7,6 +7,41 @@
 --%>
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Cookie[] cookies = request.getCookies();
+    String em = null;
+
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("em")) {
+                em = cookie.getValue();
+                break;
+            }
+        }
+    }
+
+    int sid = 0;
+
+    try {
+        String Driver = application.getInitParameter("Driver");
+        String Database = application.getInitParameter("Database");
+        String Username = application.getInitParameter("Username");
+        String Password = application.getInitParameter("Password");
+
+        Class.forName(Driver);
+        Connection con = DriverManager.getConnection(Database, Username, Password);
+
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM student_registration WHERE semail = ?");
+        pst.setString(1, em);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            sid = rs.getInt("id");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
 <html>
 <head>
     <title>Title</title>

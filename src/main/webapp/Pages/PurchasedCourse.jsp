@@ -169,7 +169,7 @@ Page content START -->
                                 <hr>
                                 <!-- Time -->
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <a href="./?sp_name=co" class="btn btn-outline-primary mb-0">Watch</a>
+                                    <a href="./?sp_name=lc&ci=<%= cid%>&cn=<%= cname%>" class="btn btn-outline-primary mb-0">Watch</a>
                                     <span class="h6 fw-light mb-0 me-3"><i class="far fa-clock text-danger me-2"></i> <%= chours%> hours</span>
                                 </div>
                             </div>
