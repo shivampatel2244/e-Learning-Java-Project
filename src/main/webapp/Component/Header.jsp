@@ -124,7 +124,7 @@
                         <li> <a class="dropdown-item" href="./?sp_name=fc">Free Course</a> </li>
                         <li> <a class="dropdown-item" href="./?sp_name=pc">Paid Course</a> </li>
                         <% if (hasPurchasedCourse) { %>
-                        <li> <a class="dropdown-item" href="./?sp_name=pc">Purchased Course</a> </li>
+                        <li> <a class="dropdown-item" href="./?sp_name=purc">Purchased Course</a> </li>
                         <% } %>
                     </ul>
                 </li>

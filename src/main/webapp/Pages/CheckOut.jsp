@@ -540,7 +540,7 @@
 
                             <!-- Button -->
                             <div class="d-grid">
-                                <a href="./Credit-Card-master/pay.jsp?ui=<%= sid%>&ci=<%= cid%>&cn=<%= cname%>" class="btn btn-lg btn-success">Place Order</a>
+                                <a href="<%= request.getContextPath() %>/Pages/pay.jsp?ui=<%= sid %>&ci=<%= cid %>&cn=<%= cname %>" class="btn btn-lg btn-success">Place Order</a>
                             </div>
 
                             <!-- Content -->

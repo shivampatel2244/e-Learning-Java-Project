@@ -7,6 +7,42 @@
 --%>
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Cookie[] cookies = request.getCookies();
+    String em = null;
+
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("em")) {
+                em = cookie.getValue();
+                break;
+            }
+        }
+    }
+
+    int sid = 0;
+
+    try {
+        String Driver = application.getInitParameter("Driver");
+        String Database = application.getInitParameter("Database");
+        String Username = application.getInitParameter("Username");
+        String Password = application.getInitParameter("Password");
+
+        Class.forName(Driver);
+        Connection con = DriverManager.getConnection(Database, Username, Password);
+
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM student_registration WHERE semail = ?");
+        pst.setString(1, em);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            sid = rs.getInt("id");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
+
 <html>
 <head>
     <title>Title</title>
@@ -73,11 +109,17 @@ Page Banner START -->
                                 String Username = application.getInitParameter("Username");
 
                                 Class.forName(Driver);
+//String sql = "SELECT * FROM cource_playlist WHERE cid NOT IN (SELECT course_id FROM user_courses WHERE user_id=" + userId + ")";
+
                                 Connection con = DriverManager.getConnection(Database, Username, "");
                                 Statement st = con.createStatement();
-                                ResultSet rs = st.executeQuery("SELECT fp.fname, fp.fimage,fp.fqualification, cp.chours, cp.camount ,cp.ctype,cp.cname, cp.cimage, cp.cid " +
+                                String sql = "SELECT fp.fname, fp.fimage, fp.fqualification, cp.chours, cp.camount, cp.ctype, cp.cname, cp.cimage, cp.cid " +
                                         "FROM cource_playlist cp " +
-                                        "JOIN faculty_profile fp ON cp.cfacultyname = fp.fname where ctype = 'paid';");
+                                        "JOIN faculty_profile fp ON cp.cfacultyname = fp.fname " +
+                                        "WHERE cp.cid NOT IN (SELECT course_id FROM user_courses WHERE user_id = ?) AND cp.ctype = 'paid'";
+                                PreparedStatement pstmt = con.prepareStatement(sql);
+                                pstmt.setInt(1, sid);
+                                ResultSet rs = pstmt.executeQuery();
 
                                 while (rs.next()) {
                                     int cid = rs.getInt("cid");

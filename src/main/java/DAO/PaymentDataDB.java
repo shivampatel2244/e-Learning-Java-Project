@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class PaymentDataDB {
-    public boolean Register(PaymentData paymentData)
+    public boolean Payment(PaymentData paymentData)
     {
         try
         {
