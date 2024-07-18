@@ -75,6 +75,7 @@
         }
     }
 %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -367,25 +368,25 @@
                                                         <div class="col-lg-4">
                                                             <div class="mb-3">
                                                                 <label class="form-label" for="fname">First Name</label>
-                                                                <input type="text" class="form-control" id="fname" placeholder="Enter name">
+                                                                <input type="text" class="form-control" id="fname" placeholder="Enter name" value="<%= sfname%>" readonly>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4">
                                                             <div class="mb-3">
                                                                 <label class="form-label" for="lname">Last Name</label>
-                                                                <input type="text" class="form-control" id="lname" placeholder="Enter name">
+                                                                <input type="text" class="form-control" id="lname" placeholder="Enter name" value="<%= slname%>" readonly>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4">
                                                             <div class="mb-3">
                                                                 <label class="form-label" for="billing-email-address">Email Address</label>
-                                                                <input type="email" class="form-control" id="billing-email-address" placeholder="Enter email">
+                                                                <input type="email" class="form-control" id="billing-email-address" placeholder="Enter email" value="<%= semail%>" readonly>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4">
                                                             <div class="mb-3">
                                                                 <label class="form-label" for="billing-phone">Phone</label>
-                                                                <input type="text" class="form-control" id="billing-phone" placeholder="Enter Phone no.">
+                                                                <input type="text" class="form-control" id="billing-phone" placeholder="Enter Phone no." value="<%= sphone%>" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -412,7 +413,7 @@
                                             <div class="col-lg-3 col-sm-6">
                                                 <div data-bs-toggle="collapse">
                                                     <label class="card-radio-label">
-                                                        <input type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input">
+                                                        <input type="radio" name="pay-method" id="pay-methodoption1" class="card-radio-input" checked="">
                                                         <span class="card-radio py-3 text-center text-truncate">
                                                         <i class="bx bx-credit-card d-block h2 mb-3"></i>
                                                         Credit / Debit Card
@@ -436,7 +437,7 @@
                                             <div class="col-lg-3 col-sm-6">
                                                 <div>
                                                     <label class="card-radio-label">
-                                                        <input type="radio" name="pay-method" id="pay-methodoption3" class="card-radio-input" checked="">
+                                                        <input type="radio" name="pay-method" id="pay-methodoption3" class="card-radio-input">
 
                                                         <span class="card-radio py-3 text-center text-truncate">
                                                         <i class="bx bx-money d-block h2 mb-3"></i>
@@ -455,6 +456,46 @@
                 </div>
             </div>
             <!-- Right sidebar START -->
+
+            <%
+                int cid = 0;
+                String cname = "";
+                byte[] Cimage = null;
+                String camount = "";
+                String base64Imagee = "";
+                String CourseImage = "";
+                try {
+                    String i = request.getParameter("i");
+
+                    String Driver2 = application.getInitParameter("Driver");
+                    String Database2 = application.getInitParameter("Database");
+                    String Username2 = application.getInitParameter("Username");
+
+                    Class.forName(Driver2);
+                    Connection con2 = DriverManager.getConnection(Database2, Username2,"");
+                    PreparedStatement pst2 = con2.prepareStatement("SELECT * FROM cource_playlist WHERE cid = ?");
+                    pst2.setString(1, i);
+                    ResultSet rs2 = pst2.executeQuery();
+
+                    if (rs2.next()) {
+                        cid = rs2.getInt("cid");
+                        camount = rs2.getString("camount");
+                        cname = rs2.getString("cname");
+                        Cimage = rs2.getBytes("cimage");
+
+                        if (Cimage != null) {
+                            base64Imagee = java.util.Base64.getEncoder().encodeToString(Cimage);
+                            CourseImage = "data:image/jpeg;base64," + base64Imagee;
+                        }
+                    }
+                    rs2.close();
+                    pst2.close();
+                    con2.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            %>
+
             <div class="col-xl-4">
                 <div class="row mb-0">
                     <div class="col-md-6 col-xl-12">
@@ -467,11 +508,11 @@
                             <div class="row g-3">
                                 <!-- Image -->
                                 <div class="col-sm-4">
-                                    <img class="rounded" src="assets/images/courses/4by3/08.jpg" alt="">
+                                    <img class="rounded" src="<%= CourseImage %>" alt="">
                                 </div>
                                 <!-- Info -->
                                 <div class="col-sm-8">
-                                    <h6 class="mb-0 mt-4"><a href="#">Bootstrap Sass Full Tutorial</a></h6>
+                                    <h6 class="mb-0 mt-4"><a href="#"><%= cname %></a></h6>
                                 </div>
                             </div>
                             <!-- Course item END -->
@@ -483,15 +524,8 @@
                             <ul class="list-group list-group-borderless mb-2">
                                 <li class="list-group-item px-0 d-flex justify-content-between">
                                     <span class="h6 fw-light mb-0">Original Price</span>
-                                    <span class="h6 fw-light mb-0 fw-bold">Rs.6000</span>
+                                    <span class="h6 fw-light mb-0 fw-bold">Rs.<%= camount %></span>
                                 </li>
-                                <%
-                                    int a = 200;
-// Retrieve the value from the request attribute
-                                    int f = 6000;
-                                    int b = f;
-                                    int c = b - a;
-                                %>
 
                                 <li class="list-group-item px-0 d-flex justify-content-between">
                                     <span class="h6 fw-light mb-0">Coupon Discount</span>
@@ -500,13 +534,13 @@
 
                                 <li class="list-group-item px-0 d-flex justify-content-between">
                                     <span class="h5 mb-0">Total</span>
-                                    <span class="h5 mb-0">Rs.<%= c%></span>
+                                    <span class="h5 mb-0">Rs.<%= camount %></span>
                                 </li>
                             </ul>
 
                             <!-- Button -->
                             <div class="d-grid">
-                                <a href="./Credit-Card-master/index.html" class="btn btn-lg btn-success">Place Order</a>
+                                <a href="./Credit-Card-master/pay.jsp?ui=<%= sid%>&ci=<%= cid%>&cn=<%= cname%>" class="btn btn-lg btn-success">Place Order</a>
                             </div>
 
                             <!-- Content -->

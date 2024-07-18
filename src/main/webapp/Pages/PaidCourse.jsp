@@ -130,7 +130,7 @@ Page Banner START -->
                                     <hr>
                                     <!-- Time -->
                                     <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <a href="./?sp_name=co" class="btn btn-outline-danger mb-0">Rs.<%= camount%></a>
+                                        <a href="./?sp_name=co&i=<%=cid%>" class="btn btn-outline-danger mb-0">Rs.<%= camount%></a>
                                         <span class="h6 fw-light mb-0 me-3"><i class="far fa-clock text-danger me-2"></i> <%= chours%> hours</span>
                                     </div>
                                 </div>
