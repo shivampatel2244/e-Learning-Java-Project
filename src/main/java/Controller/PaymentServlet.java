@@ -48,7 +48,7 @@ public class PaymentServlet extends HttpServlet {
                 pstmt.setString(1, sid);
                 pstmt.setString(2, cid);
                 pstmt.executeUpdate();
-                resp.sendRedirect(req.getContextPath() + "/?sp_name=purc");
+                resp.sendRedirect(req.getContextPath() + "/PaymentReceipt.jsp");
             } else {
                 resp.sendRedirect(req.getContextPath() + "/?sp_name=purc");
             }

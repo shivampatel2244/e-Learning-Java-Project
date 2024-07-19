@@ -109,7 +109,6 @@ Page Banner START -->
                                 String Username = application.getInitParameter("Username");
 
                                 Class.forName(Driver);
-//String sql = "SELECT * FROM cource_playlist WHERE cid NOT IN (SELECT course_id FROM user_courses WHERE user_id=" + userId + ")";
 
                                 Connection con = DriverManager.getConnection(Database, Username, "");
                                 Statement st = con.createStatement();

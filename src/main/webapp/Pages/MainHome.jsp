@@ -147,7 +147,7 @@ Main Banner START -->
                             <img class="avatar-img rounded-circle shadow" src="assets/images/avatar/04.jpg" alt="avatar">
                         </div>
                         <!-- Info -->
-                        <div class="text-start ms-3">
+                        <div class="text-start ms-3" style="text-align: left !important;padding-left: 10px;">
                             <h6 class="mb-0">Java Development class</h6>
                             <p class="mb-0 small text-body">Today at 1:00 pm</p>
                             <!-- Button -->
