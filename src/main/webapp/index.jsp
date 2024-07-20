@@ -228,9 +228,9 @@
     <jsp:include page="/Pages/PurchasedCourse.jsp" />
     <%
             break;
-        case "StudentQry":
+        case "ph":
     %>
-    <jsp:include page="" />
+    <jsp:include page="/Pages/PaymentHistory.jsp" />
     <%
             break;
         case "AdmPF":

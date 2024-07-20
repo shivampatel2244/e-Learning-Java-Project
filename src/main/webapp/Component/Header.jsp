@@ -23,6 +23,8 @@
     }
 
     int sid = 0;
+
+
     String sfname = "";
     String slname = "";
     String sgender = "";
@@ -178,7 +180,9 @@
                         <!-- Links -->
                         <li> <hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="./?sp_name=vp"><i class="bi bi-person fa-fw me-2"></i>View Profile</a></li>
+                        <li><a class="dropdown-item" href="./?sp_name=ph"><i class="bi bi-person fa-fw me-2"></i>Payment History</a></li>
                         <li><a class="dropdown-item bg-danger-soft-hover" href="<%= request.getContextPath() %>/Login.jsp"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+
                         <li> <hr class="dropdown-divider"></li>
                         <!-- Dark mode options START -->
                         <li>

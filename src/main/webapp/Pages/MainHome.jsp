@@ -441,7 +441,7 @@ Popular course START -->
                     Statement st = con.createStatement();
                     ResultSet rs = st.executeQuery("SELECT fp.fname, fp.fid,fp.fimage, fp.fqualification ,cp.chours, cp.ctype ,cp.cname, cp.cimage, cp.cid " +
                             "FROM cource_playlist cp " +
-                            "JOIN faculty_profile fp ON cp.cfacultyname = fp.fname WHERE cp.ctype = 'paid' ORDER BY RAND() LIMIT 3;");
+                            "JOIN faculty_profile fp ON cp.cfacultyname = fp.fname WHERE cp.ctype = 'paid' ORDER BY RAND() limit 3;");
 
                     while (rs.next()) {
                         int FactId = rs.getInt("fid");
