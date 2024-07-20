@@ -147,10 +147,12 @@
                 String ui = request.getParameter("ui");
                 String ci = request.getParameter("ci");
                 String cn = request.getParameter("cn");
+                String ca = request.getParameter("ca");
             %>
             <input type="hidden" name="sid" value="<%= ui%>" />
             <input type="hidden" name="cid" value="<%= ci%>"/>
             <input type="hidden" name="cname" value="<%= cn%>"/>
+            <input type="hidden" name="ca" value="<%= ca%>"/>
 
             <!-- visible form fields -->
             <div class="card-form__inner">

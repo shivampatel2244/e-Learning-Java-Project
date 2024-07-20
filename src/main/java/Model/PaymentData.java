@@ -5,16 +5,18 @@ public class PaymentData {
     private String sid;
     private String cid;
     private String cname;
+    private String camount;
     private String cardno;
     private String chname;
     private String chmonth;
     private String chyear;
     private String cvv;
 
-    public PaymentData(String sid, String cid, String cname, String cardno, String chname, String chmonth, String chyear, String cvv) {
+    public PaymentData(String sid, String cid, String cname, String camount,String cardno, String chname, String chmonth, String chyear, String cvv) {
         this.sid = sid;
         this.cid = cid;
         this.cname = cname;
+        this.camount = camount;
         this.cardno = cardno;
         this.chname = chname;
         this.chmonth = chmonth;
@@ -58,6 +60,13 @@ public class PaymentData {
         return cardno;
     }
 
+    public String getCamount() {
+        return camount;
+    }
+
+    public void setCamount(String camount) {
+        this.camount = camount;
+    }
     public void setCardno(String cardno) {
         this.cardno = cardno;
     }

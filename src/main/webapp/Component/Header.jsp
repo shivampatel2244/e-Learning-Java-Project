@@ -125,11 +125,13 @@
                     <ul class="dropdown-menu" aria-labelledby="demoMenu">
                         <li> <a class="dropdown-item" href="./?sp_name=fc">Free Course</a> </li>
                         <li> <a class="dropdown-item" href="./?sp_name=pc">Paid Course</a> </li>
-                        <% if (hasPurchasedCourse) { %>
-                        <li> <a class="dropdown-item" href="./?sp_name=purc">Purchased Course</a> </li>
-                        <% } %>
                     </ul>
                 </li>
+
+                <% if (hasPurchasedCourse) { %>
+                <li class="nav-item dropdown"><a class="nav-link" href="./?sp_name=purc">Purchased Course</a></li>
+                <% } %>
+
                 <!-- Nav item 3 My learning -->
                 <li class="nav-item dropdown"><a class="nav-link" href="./?sp_name=fl">Faculty</a></li>
 
@@ -179,9 +181,9 @@
                         </li>
                         <!-- Links -->
                         <li> <hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="./?sp_name=vp"><i class="bi bi-person fa-fw me-2"></i>View Profile</a></li>
-                        <li><a class="dropdown-item" href="./?sp_name=ph"><i class="bi bi-person fa-fw me-2"></i>Payment History</a></li>
-                        <li><a class="dropdown-item bg-danger-soft-hover" href="<%= request.getContextPath() %>/Login.jsp"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+                        <li><a class="dropdown-item" href="./?sp_name=vp"><i class="bi bi-person fa-fw me-2"></i> View Profile</a></li>
+                        <li><a class="dropdown-item" href="./?sp_name=ph"><i class="bi bi-clock-history fa-fw me-2"></i> Payment History</a></li>
+                        <li><a class="dropdown-item bg-danger-soft-hover" href="<%= request.getContextPath() %>/Login.jsp"><i class="bi bi-power fa-fw me-2"></i> Sign Out</a></li>
 
                         <li> <hr class="dropdown-divider"></li>
                         <!-- Dark mode options START -->

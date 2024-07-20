@@ -105,11 +105,12 @@ Page Banner END -->
                 Class.forName(Driver);
                 Connection con = DriverManager.getConnection(Database, Username, Password);
 
-                PreparedStatement pst = con.prepareStatement("SELECT sp.sid, cp.cname, cp.cimage FROM student_payment sp JOIN cource_playlist cp ON sp.cid = cp.cid JOIN student_registration sd ON sp.sid = sd.id WHERE sp.sid = ?");
+                PreparedStatement pst = con.prepareStatement("SELECT sp.sid, cp.cname, cp.cimage,sp.sid FROM student_payment sp JOIN cource_playlist cp ON sp.cid = cp.cid JOIN student_registration sd ON sp.sid = sd.id WHERE sp.sid = ?");
                 pst.setInt(1, sid);
                 ResultSet rs = pst.executeQuery();
 
                 while (rs.next()) {
+                    String paysid = rs.getString("sid");
                     String studid = rs.getString("sid");
                     String cname = rs.getString("cname");
                     byte[] cimage = rs.getBytes("cimage");
@@ -123,7 +124,7 @@ Page Banner END -->
                     <h5 class="card-title text-center"><%= cname %></h5>
                     <hr style="border: 2px solid red;" />
                     <div style="display: flex; justify-content: space-between">
-                        <a href="Pages/ProfilePaymentReceipt.jsp" class="btn btn-outline-success btn-sm">View Receipt</a>
+                        <a href="Pages/ProfilePaymentReceipt.jsp?si=<%= sid%>" class="btn btn-outline-success btn-sm">View Receipt</a>
                         <a href="javascript:void(0);" class="btn btn-outline-info btn-sm" onclick="generateQRCode('<%= studid %>')"><i class="far fa-share-square"></i></a>
                     </div>
                 </div>
@@ -148,9 +149,8 @@ Page Banner END -->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="qrCodeModalLabel">
-                    QR Code
+                    Scan QR Code
                 </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
                 <img src="" id="qrCodeImage" alt="QR Code">

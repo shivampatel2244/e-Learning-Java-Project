@@ -21,13 +21,14 @@ public class PaymentServlet extends HttpServlet {
         String sid = req.getParameter("sid");
         String cid = req.getParameter("cid");
         String cname = req.getParameter("cname");
+        String ca = req.getParameter("ca");
         String cardno = req.getParameter("cardno");
         String chname = req.getParameter("chname");
         String chmonth = req.getParameter("chmonth");
         String chyear = req.getParameter("chyear");
         String cvv = req.getParameter("cvv");
 
-        PaymentData pd = new PaymentData(sid, cid, cname, cardno, chname, chmonth, chyear, cvv);
+        PaymentData pd = new PaymentData(sid, cid, cname,ca, cardno, chname, chmonth, chyear, cvv);
         PaymentDataDB pdb = new PaymentDataDB();
         boolean success = pdb.Payment(pd);
 
@@ -48,9 +49,9 @@ public class PaymentServlet extends HttpServlet {
                 pstmt.setString(1, sid);
                 pstmt.setString(2, cid);
                 pstmt.executeUpdate();
-                resp.sendRedirect(req.getContextPath() + "/Pages/PaymentReceipt.jsp");
+                resp.sendRedirect(req.getContextPath() + "/?sp_name=ph");
             } else {
-                resp.sendRedirect(req.getContextPath() + "/?sp_name=purc");
+                resp.sendRedirect(req.getContextPath() + "/?sp_name=pc");
             }
         } catch (Exception e) {
             e.printStackTrace();

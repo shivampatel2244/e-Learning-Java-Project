@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.sql.*" %><%--
   Created by IntelliJ IDEA.
   User: shivp
   Date: 19-07-2024
@@ -123,11 +123,37 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <div class="container page-content">
     <div class="page-header text-blue-d2">
+        <%
+            try {
+                String sid = request.getParameter("si");
+
+                String Driver = application.getInitParameter("Driver");
+                String Database = application.getInitParameter("Database");
+                String Username = application.getInitParameter("Username");
+                String Password = application.getInitParameter("Password");
+
+                Class.forName(Driver);
+                Connection con = DriverManager.getConnection(Database, Username, Password);
+
+                PreparedStatement pst = con.prepareStatement("SELECT sr.sfname, sr.slname, sr.semail, sr.sphone,sp.id,sp.date,sp.cname,sp.camount FROM student_registration sr JOIN student_payment sp ON sp.sid = ?;");
+                pst.setString(1, sid);
+                ResultSet rs = pst.executeQuery();
+
+                if (rs.next()) {
+                    String id = rs.getString("id");
+                    String date = rs.getString("date");
+                    String sfname = rs.getString("sfname");
+                    String slname = rs.getString("slname");
+                    String semail = rs.getString("semail");
+                    String sphone = rs.getString("sphone");
+                    String cname = rs.getString("cname");
+                    String camount = rs.getString("camount");
+        %>
         <h1 class="page-title text-secondary-d1">
             Invoice
             <small class="page-info">
                 <i class="fa fa-angle-double-right text-80"></i>
-                ID: #111-222
+                ID: #<%= id%>
             </small>
         </h1>
         <div class="page-tools">
@@ -158,15 +184,15 @@
                             <span class="text-sm text-grey-m2 align-middle">To :</span>
                         </div>
                         <div class="text-600 text-110 text-blue my-1">
-                            Shivam Menpara
+                            <%= sfname%> <%= slname%>
                         </div>
                         <div class="text-grey-m2">
                             <div class="my-1">
-                                <b class="text-600">shivampatel635272@gmail.com</b>
+                                <b class="text-600"><%= semail%></b>
                             </div>
                             <div class="my-1">
                                 <i class="fa fa-phone fa-flip-horizontal text-secondary"></i>
-                                <b class="text-600">+91-6352725171</b>
+                                <b class="text-600">+91-<%= sphone%></b>
                             </div>
                         </div>
                     </div>
@@ -179,11 +205,11 @@
                             </div>
                             <div class="my-2">
                                 <i class="fa fa-circle text-blue-m2 text-xs mr-1"></i>
-                                <span class="text-600 text-90">ID :</span> #111-222
+                                <span class="text-600 text-90">ID :</span> #<%= id%>
                             </div>
                             <div class="my-2">
                                 <i class="fa fa-circle text-blue-m2 text-xs mr-1"></i>
-                                <span class="text-600 text-90">Issue Date :</span> Oct 12, 2019
+                                <span class="text-600 text-90">Issue Date :</span> <%= date%>
                             </div>
                             <div class="my-2">
                                 <i class="fa fa-circle text-blue-m2 text-xs mr-1"></i>
@@ -197,7 +223,7 @@
                 <div class="mt-4">
                     <div class="row text-600 text-white bgc-default-tp1 py-25">
                         <div class="d-none d-sm-block col-1">#</div>
-                        <div class="col-9 col-sm-5">Description</div>
+                        <div class="col-9 col-sm-5">Course Name</div>
                         <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
                         <div class="d-none d-sm-block col-sm-2">Unit Price</div>
                         <div class="col-2">Amount</div>
@@ -205,10 +231,10 @@
                     <div class="text-95 text-secondary-d3">
                         <div class="row mb-2 mb-sm-0 py-25">
                             <div class="d-none d-sm-block col-1">1</div>
-                            <div class="col-9 col-sm-5">Domain registration</div>
-                            <div class="d-none d-sm-block col-2">2</div>
-                            <div class="d-none d-sm-block col-2 text-95">Rs.6000</div>
-                            <div class="col-2 text-secondary-d2">Rs.6000</div>
+                            <div class="col-9 col-sm-5"><%= cname%></div>
+                            <div class="d-none d-sm-block col-2">1</div>
+                            <div class="d-none d-sm-block col-2 text-95">Rs.<%= camount%></div>
+                            <div class="col-2 text-secondary-d2">Rs.<%= camount%></div>
                         </div>
                     </div>
                     <div class="row border-b-2 brc-default-l2"></div>
@@ -223,7 +249,7 @@
                                     Total
                                 </div>
                                 <div class="col-5">
-                                    <span class="text-secondary-d1">Rs.6000</span>
+                                    <span class="text-secondary-d1">Rs.<%= camount%></span>
                                 </div>
                             </div>
                         </div>
@@ -232,6 +258,16 @@
                 </div>
             </div>
         </div>
+        <%
+                }
+
+                rs.close();
+                pst.close();
+                con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        %>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
