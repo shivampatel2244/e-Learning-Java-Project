@@ -111,7 +111,7 @@
                     <h5 class="card-title text-center"><%= cname %></h5>
                     <hr style="border: 2px solid red;" />
                     <div style="display: flex; justify-content: space-between">
-                        <a href="Pages/ProfilePaymentReceipt.jsp?si=<%= sid %>" class="btn btn-outline-success btn-sm">View Receipt</a>
+                        <a href="Pages/ProfilePaymentReceipt.jsp?cn=<%= cname%>" class="btn btn-outline-success btn-sm">View Receipt</a>
                         <a href="" class="btn btn-outline-info btn-sm"><i class="far fa-share-square"></i></a>
                     </div>
                 </div>

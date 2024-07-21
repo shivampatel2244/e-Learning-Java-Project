@@ -125,8 +125,7 @@
     <div class="page-header text-blue-d2">
         <%
             try {
-                String sid = request.getParameter("si");
-
+                String cn = request.getParameter("cn");
                 String Driver = application.getInitParameter("Driver");
                 String Database = application.getInitParameter("Database");
                 String Username = application.getInitParameter("Username");
@@ -135,8 +134,8 @@
                 Class.forName(Driver);
                 Connection con = DriverManager.getConnection(Database, Username, Password);
 
-                PreparedStatement pst = con.prepareStatement("SELECT sr.sfname, sr.slname, sr.semail, sr.sphone,sp.id,sp.date,sp.cname,sp.camount FROM student_registration sr JOIN student_payment sp ON sp.sid = ?;");
-                pst.setString(1, sid);
+                PreparedStatement pst = con.prepareStatement("SELECT sr.sfname, sr.slname, sr.semail, sr.sphone,sp.id,sp.date,sp.cname,sp.camount FROM student_registration sr JOIN student_payment sp ON sp.cname = ?;");
+                pst.setString(1, cn);
                 ResultSet rs = pst.executeQuery();
 
                 if (rs.next()) {
