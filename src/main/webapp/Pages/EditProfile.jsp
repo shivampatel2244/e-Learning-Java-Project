@@ -168,20 +168,20 @@ Page content START -->
                     <!-- Card body START -->
                     <div class="card-body">
                         <!-- Form -->
-                        <form action="" class="row g-4" id="registrationForm" method="post">
+                        <form action="UpdateDataServlet" class="row g-4" id="registrationForm" method="post">
 
                             <input type="hidden" name="id" value="<%= sid%>"/>
                             <!-- Full name -->
                             <div class="col-6">
                                 <label class="form-label">First Name</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="fname" value="<%= sfname%>" placeholder="Enter First name" required>
+                                    <input type="text" class="form-control" name="sfname" value="<%= sfname%>" placeholder="Enter First name" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <label class="form-label">Last Name</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="lname" value="<%= slname%>" placeholder="Enter Last name" required>
+                                    <input type="text" class="form-control" name="slname" value="<%= slname%>" placeholder="Enter Last name" required>
                                 </div>
                             </div>
 
@@ -189,21 +189,21 @@ Page content START -->
                             <div class="col-md-6">
                                 <label class="form-label">Qualification</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" value="<%= squalification%>" name="qualification" placeholder="Enter Qualification" required>
+                                    <input type="text" class="form-control" value="<%= squalification%>" name="squalification" placeholder="Enter Qualification" required>
                                 </div>
                             </div>
 
                             <!-- Email id -->
                             <div class="col-md-6">
                                 <label class="form-label">Email id</label>
-                                <input class="form-control" type="email" value="<%= em%>" name="email" placeholder="Email" required>
+                                <input class="form-control" type="email" value="<%= em%>" name="semail" placeholder="Email" required>
                             </div>
 
                             <!-- Gender -->
                             <div class="col-md-6">
                                 <label class="form-label">Gender</label>
-                                <select class="form-control" id="gender" name="gender" required>
-                                    <option value="<%= sgender%>" disabled selected><%= sgender%></option>
+                                <select class="form-control" id="gender" name="sgender" required>
+                                    <option value="<%= sgender%>"><%= sgender%></option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>
@@ -213,13 +213,13 @@ Page content START -->
                             <!-- Date of Birth -->
                             <div class="col-md-6">
                                 <label for="dob" class="form-label">Date of Birth</label>
-                                <input type="date" class="form-control" value="<%= sdob%>" name="dob" id="dob" required>
+                                <input type="date" class="form-control" value="<%= sdob%>" name="sdob" id="dob" required>
                             </div>
 
                             <!-- Mobile No -->
                             <div class="col-6">
                                 <label for="mobileNumber" class="form-label">Mobile Number</label>
-                                <input type="text" class="form-control" name="phone" placeholder="Mobile Number" value="<%= sphone%>" id="mobileNumber" pattern="[0-9]{10}" required>
+                                <input type="text" class="form-control" name="sphone" placeholder="Mobile Number" value="<%= sphone%>" id="mobileNumber" pattern="[0-9]{10}" required>
                             </div>
 
                             <!-- Save button -->

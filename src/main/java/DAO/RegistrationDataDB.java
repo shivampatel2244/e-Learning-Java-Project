@@ -43,29 +43,53 @@ public class RegistrationDataDB {
         }
     }
 
-    public StudData getStudentById(String id) {
-        StudData studData = null;
+    public boolean updateStudent(StudData std) {
+
         try {
             Connection con = myDatabase.getConnection();
-            PreparedStatement pst = con.prepareStatement("select * from student_registration where id = ?");
-            pst.setString(1, id);
-            ResultSet rs = pst.executeQuery();
+            PreparedStatement pst = con.prepareStatement("update student_registration set sfname = ?,slname = ?,squalifiaction = ?,semail = ?,sgender = ?, sdob = ?,sphone = ? where id = ?");
+            pst.setString(1,std.getSfname());
+            pst.setString(2, std.getSlname());
+            pst.setString(3, std.getSqualifiction());
+            pst.setString(4,std.getSemail());
+            pst.setString(5,std.getSgender());
+            pst.setString(6,std.getSdob());
+            pst.setString(7, std.getSphone());
+            pst.setString(8, std.getSid());
 
-            if (rs.next()) {
-                String sfname = rs.getString("sfname");
-                String slname = rs.getString("slname");
-                String squalifiction = rs.getString("squalifiaction");
-                String semail = rs.getString("semail");
-                String sgender = rs.getString("sgender");
-                String sdob = rs.getString("sdob");
-                String sphone = rs.getString("sphone");
-                byte[] simage = rs.getBytes("simage");
-                String spassword = rs.getString("spassword");
-                studData = new StudData(sfname, slname, squalifiction, semail, sgender, sdob, sphone, simage, spassword);
-            }
+            return pst.executeUpdate() > 0;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return studData;
+        return false;
+    }
+
+    public boolean updatePasasword(StudData std)
+    {
+        try {
+            Connection con = myDatabase.getConnection();
+
+            // Check if the old password matches for the given ID
+            PreparedStatement pstCheck = con.prepareStatement("SELECT * FROM student_registration WHERE id=? AND spassword=?");
+            pstCheck.setString(1, std.getSid());
+            pstCheck.setString(2, std.getSpassword());
+            ResultSet rs = pstCheck.executeQuery();
+
+            if (rs.next()) {
+                // Old password matches, update to new password
+                PreparedStatement pstUpdate = con.prepareStatement("UPDATE admin_profile SET password=? WHERE id=?");
+                pstUpdate.setString(1, std.getSnpassword());
+                pstUpdate.setString(2, std.getSid());
+
+                return pstUpdate.executeUpdate() > 0;
+            } else {
+                // Old password does not match
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

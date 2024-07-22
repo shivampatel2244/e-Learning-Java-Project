@@ -152,7 +152,8 @@ Page content START -->
                     <!-- Card body START -->
                     <div class="card-body">
                         <!-- Form -->
-                        <form class="row g-4" id="registrationForm" action="#">
+                        <form class="row g-4" id="registrationForm" action="#" method="post">
+                            <input type="hidden" name="id" value="<%= sid%>" />
                             <!-- Password change START -->
                             <div class="col-lg-6">
                                 <div class="card border bg-transparent rounded-3" style="box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
@@ -165,13 +166,13 @@ Page content START -->
                                         <!-- Current password -->
                                         <div class="mb-3">
                                             <label class="form-label">Current password</label>
-                                            <input class="form-control" type="password" placeholder="Enter current password" required>
+                                            <input class="form-control" type="password" name="pss" placeholder="Enter current password" required>
                                         </div>
                                         <!-- New password -->
                                         <div class="mb-3">
                                             <label class="form-label"> Enter new password</label>
                                             <div class="input-group">
-                                                <input class="form-control" type="password" id="newPassword" placeholder="Enter new password" required>
+                                                <input class="form-control" type="password" name="np" id="newPassword" placeholder="Enter new password" required>
                                                 <span class="input-group-text p-0 bg-transparent">
                             <i class="far fa-eye cursor-pointer p-2 w-40px" id="toggleNewPassword"></i>
                         </span>
@@ -181,7 +182,7 @@ Page content START -->
                                         <!-- Confirm password -->
                                         <div>
                                             <label class="form-label">Confirm new password</label>
-                                            <input class="form-control" type="password" id="confirmPassword" placeholder="Enter new password" required>
+                                            <input class="form-control" type="password" name="cp" id="confirmPassword" placeholder="Enter Confirm password" required>
                                         </div>
                                         <!-- Button -->
                                         <div class="d-flex justify-content-end mt-4">

@@ -11,9 +11,9 @@ public class StudData {
     private String sphone;
     private byte[] simage;
     private String spassword;
+    private String snpassword;
 
-    public StudData(String sid, String sfname, String slname, String squalifiction, String semail, String sgender, String sdob, String sphone, byte[] simage, String spassword) {
-        this.sid = sid;
+    public StudData(String sfname, String slname, String squalifiction, String semail, String sgender, String sdob, String sphone, String sid) {
         this.sfname = sfname;
         this.slname = slname;
         this.squalifiction = squalifiction;
@@ -21,20 +21,8 @@ public class StudData {
         this.sgender = sgender;
         this.sdob = sdob;
         this.sphone = sphone;
-        this.simage = simage;
-        this.spassword = spassword;
+        this.sid = sid;
     }
-
-    //    private String id;
-//    private String sFname;
-//    private String sLname;
-//    private String sQualifiction;
-//    private String sEmail;
-//    private String sGender;
-//    private String sDob;
-//    private String sPhone;
-//    private byte[] sImage;
-//    private String sPassword;
 
 
     public StudData(String sfname, String slname,String squalifiction,String semail,String sgender,String sdob,String sphone,byte[] simage, String spassword)
@@ -50,25 +38,27 @@ public class StudData {
         this.spassword = spassword;
     }
 
+    public StudData(String sid,String spassword,String snpassword)
+    {
+        this.sid = sid;
+        this.spassword = spassword;
+        this.snpassword = snpassword;
+    }
+
     public StudData(String semail,String spassword)
     {
         this.semail = semail;
         this.spassword = spassword;
     }
 
-//    public StudData(String id, String sFname, String sLname, String sQualifiction, String sEmail, String sGender, String sDob, String sPhone, byte[] sImage, String sPassword)
-//    {
-//        this.id = id;
-//        this.sFname = sFname;
-//        this.sLname = sLname;
-//        this.sQualifiction = sQualifiction;
-//        this.sEmail = sEmail;
-//        this.sGender = sGender;
-//        this.sDob = sDob;
-//        this.sphone = sPhone;
-//        this.sImage = sImage;
-//        this.sPassword = sPassword;
-//    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
 
     public String getSfname() {
         return sfname;
@@ -141,86 +131,14 @@ public class StudData {
     public void setSpassword(String spassword) {
         this.spassword = spassword;
     }
-//
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-//
-//    public String getsFname() {
-//        return sFname;
-//    }
-//
-//    public void setsFname(String sFname) {
-//        this.sFname = sFname;
-//    }
-//
-//    public String getsLname() {
-//        return sLname;
-//    }
-//
-//    public void setsLname(String sLname) {
-//        this.sLname = sLname;
-//    }
-//
-//    public String getsQualifiction() {
-//        return sQualifiction;
-//    }
-//
-//    public void setsQualifiction(String sQualifiction) {
-//        this.sQualifiction = sQualifiction;
-//    }
-//
-//    public String getsEmail() {
-//        return sEmail;
-//    }
-//
-//    public void setsEmail(String sEmail) {
-//        this.sEmail = sEmail;
-//    }
-//
-//    public String getsGender() {
-//        return sGender;
-//    }
-//
-//    public void setsGender(String sGender) {
-//        this.sGender = sGender;
-//    }
-//
-//    public String getsDob() {
-//        return sDob;
-//    }
-//
-//    public void setsDob(String sDob) {
-//        this.sDob = sDob;
-//    }
-//
-//    public String getsPhone() {
-//        return sPhone;
-//    }
-//
-//    public void setsPhone(String sPhone) {
-//        this.sPhone = sPhone;
-//    }
-//
-//    public byte[] getsImage() {
-//        return sImage;
-//    }
-//
-//    public void setsImage(byte[] sImage) {
-//        this.sImage = sImage;
-//    }
-//
-//    public String getsPassword() {
-//        return sPassword;
-//    }
-//
-//    public void setsPassword(String sPassword) {
-//        this.sPassword = sPassword;
-//    }
+
+    public String getSnpassword() {
+        return snpassword;
+    }
+
+    public void setSnpassword(String snpassword) {
+        this.snpassword = snpassword;
+    }
 }
 
 
