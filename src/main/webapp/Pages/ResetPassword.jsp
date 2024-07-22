@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: shivp
   Date: 21-07-2024
-  Time: 04:36 pm
+  Time: 04:37 pm
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -27,14 +27,9 @@
 
     String sfname = "";
     String slname = "";
-    String sgender = "";
-    String semail = "";
     byte[] image = null;
     String base64Image = "";
     String Profile = "";
-    String squalification = "";
-    String sdob = "";
-    String sphone = "";
 
     Connection con = null;
     PreparedStatement pst = null;
@@ -58,11 +53,6 @@
             sid = rs.getInt("id");
             sfname = rs.getString("sfname");
             slname = rs.getString("slname");
-            squalification = rs.getString("squalifiaction");
-            sgender = rs.getString("sgender");
-            sdob = rs.getString("sdob");
-            sphone = rs.getString("sphone");
-            String spassword = rs.getString("spassword");
             image = rs.getBytes("simage");
             if (image != null) {
                 base64Image = Base64.getEncoder().encodeToString(image);
@@ -79,7 +69,6 @@
     <title>Title</title>
 </head>
 <body>
-
 <!-- =======================
 Page Banner START -->
 <section class="pt-0">
@@ -144,8 +133,8 @@ Page content START -->
                             <!-- Dashboard menu -->
                             <div class="list-group list-group-dark list-group-borderless collapse-list">
                                 <a class="list-group-item" href="?sp_name=vp"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
-                                <a class="list-group-item active" href="?sp_name=ep"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
-                                <a class="list-group-item" href="?sp_name=se"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
+                                <a class="list-group-item" href="?sp_name=ep"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                <a class="list-group-item active" href="?sp_name=se"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
                                 <a class="list-group-item" href="#"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
                                 <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
 
@@ -160,75 +149,50 @@ Page content START -->
             <!-- Main content START -->
             <div class="col-xl-9">
                 <!-- Edit profile START -->
-                <div class="card bg-transparent border rounded-3" style="box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
-                    <!-- Card header -->
-                    <div class="card-header bg-transparent border-bottom">
-                        <h3 class="card-header-title mb-0">Edit Profile</h3>
-                    </div>
                     <!-- Card body START -->
                     <div class="card-body">
                         <!-- Form -->
-                        <form action="" class="row g-4" id="registrationForm" method="post">
-
-                            <input type="hidden" name="id" value="<%= sid%>"/>
-                            <!-- Full name -->
-                            <div class="col-6">
-                                <label class="form-label">First Name</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="fname" value="<%= sfname%>" placeholder="Enter First name" required>
+                        <form class="row g-4" id="registrationForm" action="#">
+                            <!-- Password change START -->
+                            <div class="col-lg-6">
+                                <div class="card border bg-transparent rounded-3" style="box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
+                                    <!-- Card header -->
+                                    <div class="card-header bg-transparent border-bottom">
+                                        <h5 class="card-header-title mb-0">Update password</h5>
+                                    </div>
+                                    <!-- Card body START -->
+                                    <div class="card-body">
+                                        <!-- Current password -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Current password</label>
+                                            <input class="form-control" type="password" placeholder="Enter current password" required>
+                                        </div>
+                                        <!-- New password -->
+                                        <div class="mb-3">
+                                            <label class="form-label"> Enter new password</label>
+                                            <div class="input-group">
+                                                <input class="form-control" type="password" id="newPassword" placeholder="Enter new password" required>
+                                                <span class="input-group-text p-0 bg-transparent">
+                            <i class="far fa-eye cursor-pointer p-2 w-40px" id="toggleNewPassword"></i>
+                        </span>
+                                            </div>
+                                            <div class="rounded mt-1" id="psw-strength"></div>
+                                        </div>
+                                        <!-- Confirm password -->
+                                        <div>
+                                            <label class="form-label">Confirm new password</label>
+                                            <input class="form-control" type="password" id="confirmPassword" placeholder="Enter new password" required>
+                                        </div>
+                                        <!-- Button -->
+                                        <div class="d-flex justify-content-end mt-4">
+                                            <button type="submit" class="btn btn-outline-primary mb-0">Change password</button>
+                                        </div>
+                                    </div>
+                                    <!-- Card body END -->
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <label class="form-label">Last Name</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="lname" value="<%= slname%>" placeholder="Enter Last name" required>
-                                </div>
-                            </div>
-
-                            <!-- Qualification -->
-                            <div class="col-md-6">
-                                <label class="form-label">Qualification</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" value="<%= squalification%>" name="qualification" placeholder="Enter Qualification" required>
-                                </div>
-                            </div>
-
-                            <!-- Email id -->
-                            <div class="col-md-6">
-                                <label class="form-label">Email id</label>
-                                <input class="form-control" type="email" value="<%= em%>" name="email" placeholder="Email" required>
-                            </div>
-
-                            <!-- Gender -->
-                            <div class="col-md-6">
-                                <label class="form-label">Gender</label>
-                                <select class="form-control" id="gender" name="gender" required>
-                                    <option value="<%= sgender%>" disabled selected><%= sgender%></option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-
-                            <!-- Date of Birth -->
-                            <div class="col-md-6">
-                                <label for="dob" class="form-label">Date of Birth</label>
-                                <input type="date" class="form-control" value="<%= sdob%>" name="dob" id="dob" required>
-                            </div>
-
-                            <!-- Mobile No -->
-                            <div class="col-6">
-                                <label for="mobileNumber" class="form-label">Mobile Number</label>
-                                <input type="text" class="form-control" name="phone" placeholder="Mobile Number" value="<%= sphone%>" id="mobileNumber" pattern="[0-9]{10}" required>
-                            </div>
-
-                            <!-- Save button -->
-                            <div class="col-6">
-                                <label for="mobileNumber" class="form-label"></label>
-                                <button type="submit" class="form-control btn btn-outline-primary mt-2">Save changes</button>
-                            </div>
+                            <!-- Password change end -->
                         </form>
-
                     </div>
                     <!-- Card body END -->
                 </div>
@@ -236,19 +200,23 @@ Page content START -->
             </div>
             <!-- Main content END -->
         </div><!-- Row END -->
-    </div>
 </section>
 <!-- =======================
 Page content END -->
 <script>
-    document.getElementById('registrationForm').addEventListener('submit', function(event) {
-        // Check if the form is valid
-        if (!this.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-            alert('Please fill out all required fields correctly.');
+    document.getElementById('toggleNewPassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('newPassword');
+        const passwordFieldType = passwordField.getAttribute('type');
+        if (passwordFieldType === 'password') {
+            passwordField.setAttribute('type', 'text');
+            this.classList.add('fa-eye-slash');
+            this.classList.remove('fa-eye');
+        } else {
+            passwordField.setAttribute('type', 'password');
+            this.classList.add('fa-eye');
+            this.classList.remove('fa-eye-slash');
         }
-    }, false);
+    });
 </script>
 </body>
 </html>

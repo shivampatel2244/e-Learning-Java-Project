@@ -1,6 +1,7 @@
 package Model;
 
 public class StudData {
+    private String sid;
     private String sfname;
     private String slname;
     private String squalifiction;
@@ -11,7 +12,20 @@ public class StudData {
     private byte[] simage;
     private String spassword;
 
-//    private String id;
+    public StudData(String sid, String sfname, String slname, String squalifiction, String semail, String sgender, String sdob, String sphone, byte[] simage, String spassword) {
+        this.sid = sid;
+        this.sfname = sfname;
+        this.slname = slname;
+        this.squalifiction = squalifiction;
+        this.semail = semail;
+        this.sgender = sgender;
+        this.sdob = sdob;
+        this.sphone = sphone;
+        this.simage = simage;
+        this.spassword = spassword;
+    }
+
+    //    private String id;
 //    private String sFname;
 //    private String sLname;
 //    private String sQualifiction;
@@ -21,6 +35,7 @@ public class StudData {
 //    private String sPhone;
 //    private byte[] sImage;
 //    private String sPassword;
+
 
     public StudData(String sfname, String slname,String squalifiction,String semail,String sgender,String sdob,String sphone,byte[] simage, String spassword)
     {

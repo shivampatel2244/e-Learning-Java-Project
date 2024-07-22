@@ -233,9 +233,14 @@
     <jsp:include page="/Pages/PaymentHistory.jsp" />
     <%
             break;
-        case "AdmPF":
+        case "ep":
     %>
-    <jsp:include page=""/>
+    <jsp:include page="/Pages/EditProfile.jsp"/>
+    <%
+            break;
+        case "se":
+    %>
+    <jsp:include page="/Pages/ResetPassword.jsp"/>
     <%
             break;
         case "ResetPass":
