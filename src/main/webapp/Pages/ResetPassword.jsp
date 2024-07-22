@@ -152,7 +152,7 @@ Page content START -->
                     <!-- Card body START -->
                     <div class="card-body">
                         <!-- Form -->
-                        <form class="row g-4" id="registrationForm" action="#" method="post">
+                        <form class="row g-4" id="registrationForm" action="PassUpdateServlet" method="post">
                             <input type="hidden" name="id" value="<%= sid%>" />
                             <!-- Password change START -->
                             <div class="col-lg-6">
