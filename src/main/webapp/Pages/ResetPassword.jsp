@@ -67,8 +67,11 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 <body>
+
 <!-- =======================
 Page Banner START -->
 <section class="pt-0">
@@ -166,7 +169,7 @@ Page content START -->
                                         <!-- Current password -->
                                         <div class="mb-3">
                                             <label class="form-label">Current password</label>
-                                            <input class="form-control" type="password" name="pss" placeholder="Enter current password" required>
+                                            <input class="form-control" type="password" name="pass" placeholder="Enter current password" required>
                                         </div>
                                         <!-- New password -->
                                         <div class="mb-3">
@@ -204,7 +207,37 @@ Page content START -->
 </section>
 <!-- =======================
 Page content END -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const triggerToastFromURL = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const toastType = urlParams.get('toast');
+
+            if (toastType === 'success') {
+                Toastify({
+                    text: "✅ Password Reset Successfully",
+                    duration: 3000,
+                    offset: {
+                        x: 10,
+                        y: 10
+                    },
+                    backgroundColor: "",
+                    close: true, // Show close button
+                    gravity: "top", // Toast position: top or bottom
+                    position: "right", // Toast position: left, center or right
+                    stopOnFocus: true, // Prevent toast from disappearing on hover
+                    className: "custom-toast", // Apply custom class
+                }).showToast();
+            } else {
+                console.warn(`Toast type "${toastType}" is not recognized.`);
+            }
+        };
+
+        triggerToastFromURL();
+    });
+
     document.getElementById('toggleNewPassword').addEventListener('click', function () {
         const passwordField = document.getElementById('newPassword');
         const passwordFieldType = passwordField.getAttribute('type');
@@ -219,5 +252,54 @@ Page content END -->
         }
     });
 </script>
+
+<style>
+    /* Custom styles to replicate React Toastify appearance */
+    .custom-toast {
+        border-radius: 6px;
+        padding: 12px 20px; /* Padding for better appearance */
+        font-family: 'Poppins', sans-serif; /* Font similar to React Toastify */
+        font-size: 16px; /* Adjust font size if needed */
+        color: #ffffff; /* Text color */
+        border-bottom: 2px solid green;
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+        /*box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px; !* Slight shadow for better visibility *!*/
+    }
+
+    .toastify {
+        /* Toastify container styles */
+        background: linear-gradient(to right, #00b09b, #96c93d) !important; /* Background color */
+    }
+
+    .toastify .toastify-close {
+        color: #ffffff; /* Close button color */
+        font-size: 16px; /* Adjust close button size */
+    }
+
+    .toastify .toastify-close:hover {
+        color: #ccc; /* Change color on hover */
+    }
+
+    /* Override default Toastify styles to match custom look */
+    .toastify .toastify-body {
+        color: #ffffff; /* Text color */
+    }
+</style>
+
+<%--<script>--%>
+<%--    document.getElementById('toggleNewPassword').addEventListener('click', function () {--%>
+<%--        const passwordField = document.getElementById('newPassword');--%>
+<%--        const passwordFieldType = passwordField.getAttribute('type');--%>
+<%--        if (passwordFieldType === 'password') {--%>
+<%--            passwordField.setAttribute('type', 'text');--%>
+<%--            this.classList.add('fa-eye-slash');--%>
+<%--            this.classList.remove('fa-eye');--%>
+<%--        } else {--%>
+<%--            passwordField.setAttribute('type', 'password');--%>
+<%--            this.classList.add('fa-eye');--%>
+<%--            this.classList.remove('fa-eye-slash');--%>
+<%--        }--%>
+<%--    });--%>
+<%--</script>--%>
 </body>
 </html>

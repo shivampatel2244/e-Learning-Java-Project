@@ -18,16 +18,19 @@ public class PassUpdateServlet extends HttpServlet {
         String pass = req.getParameter("pass");
         String cp = req.getParameter("cp");
 
+
+        System.out.println(id + pass + cp);
+
         StudData sd = new StudData(id,pass,cp);
         RegistrationDataDB registrationDataDB = new RegistrationDataDB();
         boolean i = registrationDataDB.updatePasasword(sd);
 
         if (i) {
-            resp.sendRedirect(req.getContextPath() + "/?sp_name=se");
+            resp.sendRedirect(req.getContextPath() + "/?sp_name=se&toast=success");
         }
         else
         {
-            resp.sendRedirect(req.getContextPath() + "/?sp_name=vp");
+            resp.sendRedirect(req.getContextPath() + "/?sp_name=vp&status=error");
         }
     }
 

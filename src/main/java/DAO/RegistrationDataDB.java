@@ -78,7 +78,7 @@ public class RegistrationDataDB {
 
             if (rs.next()) {
                 // Old password matches, update to new password
-                PreparedStatement pstUpdate = con.prepareStatement("UPDATE admin_profile SET password=? WHERE id=?");
+                PreparedStatement pstUpdate = con.prepareStatement("UPDATE student_registration SET spassword=? WHERE id=?");
                 pstUpdate.setString(1, std.getSnpassword());
                 pstUpdate.setString(2, std.getSid());
 
