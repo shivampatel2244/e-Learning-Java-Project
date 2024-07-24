@@ -124,11 +124,12 @@
                         Class.forName(Driver);
                         Connection con = DriverManager.getConnection(Database, Username, "");
                         Statement st = con.createStatement();
-                        ResultSet rs = st.executeQuery("SELECT fp.fname, fp.fimage,fp.fqualification, cp.chours, cp.ctype,cp.cname, cp.cimage, cp.cid " +
+                        ResultSet rs = st.executeQuery("SELECT fp.fid,fp.fname, fp.fimage,fp.fqualification, cp.chours, cp.ctype,cp.cname, cp.cimage, cp.cid " +
                                 "FROM cource_playlist cp " +
                                 "JOIN faculty_profile fp ON cp.cfacultyname = fp.fname where ctype = 'free';");
 
                         while (rs.next()) {
+                            int fid = rs.getInt("fid");
                             int cid = rs.getInt("cid");
                             String fname = rs.getString("fname");
                             String ctype = rs.getString("ctype");
@@ -174,7 +175,7 @@
                         <!-- Card body -->
                         <div class="card-body">
                             <!-- Title -->
-                            <h5 class="card-title"><a href="./?sp_name=lc&ci=<%= cid%>&cn=<%= cname%>"><%= cname%></a></h5>
+                            <h5 class="card-title"><a href="./?sp_name=lc&ci=<%= cid%>&cn=<%= cname%>&fid=<%= fid%>"><%= cname%></a></h5>
 
                             <!-- Divider -->
                             <hr>

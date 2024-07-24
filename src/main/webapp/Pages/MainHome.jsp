@@ -360,7 +360,7 @@ Trending course START -->
                     <!-- Card body -->
                     <div class="card-body">
                         <!-- Title -->
-                        <h5 class="card-title"><a href="./?sp_name=lc&ci=<%= cid%>&cn=<%= cname%>"><%= cname%></a></h5>
+                        <h5 class="card-title"><a href="./?sp_name=lc&ci=<%= cid%>&cn=<%= cname%>&fid=<%= FactId%>"><%= cname%></a></h5>
                         <!-- Divider -->
                         <hr>
                         <!-- Time -->
@@ -439,7 +439,7 @@ Popular course START -->
                     Class.forName(Driver);
                     Connection con = DriverManager.getConnection(Database, Username, "");
                     Statement st = con.createStatement();
-                    ResultSet rs = st.executeQuery("SELECT fp.fname, fp.fid,fp.fimage, fp.fqualification ,cp.chours, cp.ctype ,cp.cname, cp.cimage, cp.cid " +
+                    ResultSet rs = st.executeQuery("SELECT fp.fid,fp.fname, fp.fid,fp.fimage, fp.fqualification ,cp.chours, cp.ctype ,cp.cname, cp.cimage, cp.cid " +
                             "FROM cource_playlist cp " +
                             "JOIN faculty_profile fp ON cp.cfacultyname = fp.fname WHERE cp.ctype = 'paid' ORDER BY RAND() limit 3;");
 

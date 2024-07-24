@@ -160,30 +160,29 @@
                     <label for="cardNumber" class="card-input__label">Card Number</label>
                     <input type="text" id="cardNumber" name="cardno" class="card-input__input" v-mask="generateCardNumberMask"
                            v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber"
-                           autocomplete="off">
+                           autocomplete="off" required>
                 </div>
                 <div class="card-input">
                     <label for="cardName" class="card-input__label">Card Holders</label>
                     <input type="text" id="cardName" class="card-input__input" v-model="cardName" name="chname"
-                           v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
+                           v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off" required>
                 </div>
                 <div class="card-form__row">
                     <div class="card-form__col">
                         <div class="card-form__group">
                             <label for="cardMonth" class="card-input__label">Expiration Date</label>
-                            <select class="card-input__input -select" id="cardMonth" v-model="cardMonth" name="chmonth" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
+                            <select class="card-input__input -select" id="cardMonth" v-model="cardMonth" name="chmonth" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate" required>
                                 <option value="" disabled selected>Month</option>
                                 <option v-bind:value="n < 10 ? '0' + n : n" v-for="n in 12" v-bind:disabled="n < minCardMonth" v-bind:key="n">
                                     {{n < 10 ? '0' + n : n}}
                                 </option>
                             </select>
-                            <select class="card-input__input -select" id="cardYear" v-model="cardYear" name="chyear" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
+                            <select class="card-input__input -select" id="cardYear" v-model="cardYear" name="chyear" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate" required>
                                 <option value="" disabled selected>Year</option>
                                 <option v-bind:value="$index + minCardYear" v-for="(n, $index) in 12" v-bind:key="n">
                                     {{$index + minCardYear}}
                                 </option>
                             </select>
-
                         </div>
                     </div>
                     <div class="card-form__col -cvv">
@@ -191,7 +190,7 @@
                             <label for="cardCvv" class="card-input__label">CVV</label>
                             <input type="text" class="card-input__input" id="cardCvv" v-mask="'####'" maxlength="3" name="cvv"
                                    v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)"
-                                   autocomplete="off">
+                                   autocomplete="off" required>
                         </div>
                     </div>
                 </div>

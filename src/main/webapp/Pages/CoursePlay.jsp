@@ -22,6 +22,7 @@
                 <!-- Course video START -->
                 <%
                     String cvid = request.getParameter("cvi");
+                    String cdescription = "";
 
                     try {
                         String Driver = application.getInitParameter("Driver");
@@ -31,7 +32,7 @@
                         Class.forName(Driver);
                         Connection con = DriverManager.getConnection(Database, Username, "");
 
-                        PreparedStatement pst = con.prepareStatement("select cname,cvideotitle,cvimage,cvideo from cource_videos where cvid=?");
+                        PreparedStatement pst = con.prepareStatement("select cname,cvideotitle,cvimage,cvideo,cdescription from cource_videos where cvid=?");
                         pst.setString(1, cvid);
 
                         ResultSet rs = pst.executeQuery();
@@ -40,17 +41,10 @@
                             byte[] image = rs.getBytes("cvimage");
                             String base64Image = java.util.Base64.getEncoder().encodeToString(image);
                             String CImage = "data:image/jpeg;base64," + base64Image;
-//                                String image = rs.getString("cvimage");
-//                                String CImage = "Upload/" + image;
-
-                            String cvideotitle = rs.getString("cvideotitle");
-
+                            cdescription = rs.getString("cdescription");
                             byte[] video = rs.getBytes("cvideo");
                             String base64Video = java.util.Base64.getEncoder().encodeToString(video);
                             String CVideo = "data:video/mp4;base64," + base64Video; // Change 'video/mp4' to the correct MIME type if different
-
-//                                String video = rs.getString("cvideo");
-//                                String CVideo = "Upload/" + video;
 
                 %>                <div class="col-12">
                     <div class="video-player rounded-3">
@@ -101,6 +95,30 @@
                             <h2><%= cvn%></h2>
                         </div>
                         <!-- Course title END -->
+                        <%
+                            try {
+                                String fid = request.getParameter("fid");
+                                String Driver = application.getInitParameter("Driver");
+                                String Database = application.getInitParameter("Database");
+                                String Username = application.getInitParameter("Username");
+
+                                Class.forName(Driver);
+                                Connection con = DriverManager.getConnection(Database, Username, "");
+                                String query = "select * from faculty_profile where fid=?";
+
+                                PreparedStatement pst = con.prepareStatement(query);
+                                pst.setString(1, fid);
+
+                                ResultSet rs = pst.executeQuery();
+
+                                while (rs.next()) {
+                                    String fname = rs.getString("fname");
+                                    String fdesignation = rs.getString("fdesignation");
+                                    byte[] cvimage = rs.getBytes("fimage");
+                                    String base64Image = java.util.Base64.getEncoder().encodeToString(cvimage);
+                                    String Image = "data:image/jpeg;base64," + base64Image;
+
+                        %>
 
                         <!-- Instructor detail START -->
                         <div class="col-12">
@@ -109,16 +127,23 @@
                                 <div class="d-flex align-items-center">
                                     <!-- Avatar image -->
                                     <div class="avatar avatar-lg">
-                                        <img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt="avatar">
+                                        <img class="avatar-img rounded-circle" src="<%= Image%>" alt="avatar">
                                     </div>
-                                    <div class="ms-3 p-2">
-                                        <h6 class="mb-0"><a href="#">By Jacqueline Miller</a></h6>
-                                        <p class="mb-0 small">Founder Eduport company</p>
+                                    <div class="ms-3 p-3 mt-2">
+                                        <h6 class="mb-0 fs-5"><a href="#"><%= fname%></a></h6>
+                                        <p class="mb-0 small mt-1 fs-6"><%= fdesignation%></p>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+                        <%
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        %>
                         <!-- Instructor detail END -->
 
                         <!-- Course detail START -->
@@ -146,36 +171,8 @@
                                 <div class="tab-pane fade show active" id="course-pills-1" role="tabpanel" aria-labelledby="course-pills-tab-1">
                                     <!-- Course detail START -->
                                     <h5 class="mb-3">Course Description</h5>
-                                    <p class="mb-3">Welcome to the <strong> Digital Marketing Ultimate Course Bundle - 12 Courses in 1 (Over 36 hours of content)</strong></p>
-                                    <p class="mb-3">In this practical hands-on training, you’re going to learn to become a digital marketing expert with this <strong> ultimate course bundle that includes 12 digital marketing courses in 1!</strong></p>
-                                    <p class="mb-3">If you wish to find out the skills that should be covered in a basic digital marketing course syllabus in India or anywhere around the world, then reading this blog will help. Before we delve into the advanced <strong><a href="#" class="text-reset text-decoration-underline">digital marketing course</a></strong> syllabus, let’s look at the scope of digital marketing and what the future holds.</p>
-                                    <p class="mb-0">We focus a great deal on the understanding of behavioral psychology and influence triggers which are crucial for becoming a well rounded Digital Marketer. We understand that theory is important to build a solid foundation, we understand that theory alone isn’t going to get the job done so that’s why this course is packed with practical hands-on examples that you can follow step by step.</p>
-
-                                    <!-- List content -->
-                                    <h5 class="mt-4">What you’ll learn</h5>
-
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <ul class="list-group list-group-borderless">
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>Digital marketing course introduction</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>Customer Life cycle</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>What is Search engine optimization(SEO)</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>Facebook ADS</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>Facebook Messenger Chatbot</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>Search engine optimization tools</li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <ul class="list-group list-group-borderless">
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>Why SEO</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>URL Structure</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>Featured Snippet</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>SEO tips and tricks</li>
-                                                <li class="list-group-item h6 fw-light d-flex mb-0"><i class="fas fa-check-circle text-success me-2"></i>Google tag manager</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <p class="mb-3">Welcome to the <strong> <%= cvn%></strong></p>
+                                    <p class="mb-3"><%= cdescription %></p>
 
                                     <!-- Course detail END -->
 

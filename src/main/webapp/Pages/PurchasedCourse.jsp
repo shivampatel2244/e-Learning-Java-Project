@@ -252,7 +252,7 @@ Page content START -->
                             Class.forName(Driver);
                             Connection con = DriverManager.getConnection(Database, Username, "");
                             Statement st = con.createStatement();
-                            String sql = "SELECT fp.fname, fp.fimage, fp.fqualification, cp.chours, cp.camount, cp.ctype, cp.cname, cp.cimage, cp.cid " +
+                            String sql = "SELECT fp.fid,fp.fname, fp.fimage, fp.fqualification, cp.chours, cp.camount, cp.ctype, cp.cname, cp.cimage, cp.cid " +
                                     "FROM cource_playlist cp " +
                                     "JOIN faculty_profile fp ON cp.cfacultyname = fp.fname " +
                                     "WHERE cp.cid IN (SELECT course_id FROM user_courses WHERE user_id = ?)";
@@ -261,6 +261,7 @@ Page content START -->
                             ResultSet rs = pstmt.executeQuery();
 
                             while (rs.next()) {
+                                int fid = rs.getInt("fid");
                                 int cid = rs.getInt("cid");
                                 String fname = rs.getString("fname");
                                 String camount = rs.getString("camount");
@@ -296,7 +297,7 @@ Page content START -->
                                             </div>
                                             <!-- Avatar info -->
                                             <div class="p-2">
-                                                <h6 class="mb-0"><a href="instructor-single.html" class="text-dark"><%= fname%></a></h6>
+                                                <h6 class="mb-0"><a href="?sp_name=fd&fid=<%= fid%>" class="text-dark"><%= fname%></a></h6>
                                                 <span class="small"><%= fqualification%></span>
                                             </div>
                                         </div>
@@ -311,7 +312,7 @@ Page content START -->
                                 <hr>
                                 <!-- Time -->
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <a href="./?sp_name=lc&ci=<%= cid%>&cn=<%= cname%>" class="btn btn-outline-primary mb-0">Watch</a>
+                                    <a href="./?sp_name=lc&ci=<%= cid%>&cn=<%= cname%>&fid=<%= fid%>" class="btn btn-outline-primary mb-0">Watch</a>
                                     <span class="h6 fw-light mb-0 me-3"><i class="far fa-clock text-danger me-2"></i> <%= chours%> hours</span>
                                 </div>
                             </div>

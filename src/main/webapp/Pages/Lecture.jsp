@@ -146,6 +146,7 @@
             <!-- Filter bar END -->
             <%
                 String cn = request.getParameter("cn");
+                String fid = request.getParameter("fid");
             %>
             <h4 class="mb-20">Full <%= cn %>
             </h4>
@@ -157,30 +158,30 @@
                     <div class="row g-4">
 
                         <!-- Card item START -->
-                        <%
-                            try {
-                                String cid = request.getParameter("ci");
-                                String Driver = application.getInitParameter("Driver");
-                                String Database = application.getInitParameter("Database");
-                                String Username = application.getInitParameter("Username");
+                            <%
+                                try {
+                                    String cid = request.getParameter("ci");
+                                    String Driver = application.getInitParameter("Driver");
+                                    String Database = application.getInitParameter("Database");
+                                    String Username = application.getInitParameter("Username");
 
-                                Class.forName(Driver);
-                                Connection con = DriverManager.getConnection(Database, Username, "");
-                                String query = "select * from cource_videos where cvid=?";
+                                    Class.forName(Driver);
+                                    Connection con = DriverManager.getConnection(Database, Username, "");
+                                    String query = "select * from cource_videos where cvid=?";
 
-                                PreparedStatement pst = con.prepareStatement(query);
-                                pst.setString(1, cid);
+                                    PreparedStatement pst = con.prepareStatement(query);
+                                    pst.setString(1, cid);
 
-                                ResultSet rs = pst.executeQuery();
+                                    ResultSet rs = pst.executeQuery();
 
-                                while (rs.next()) {
-                                    String cvideotitle = rs.getString("cvideotitle");
+                                    while (rs.next()) {
+                                        String cvideotitle = rs.getString("cvideotitle");
 
-                                    byte[] cvimage = rs.getBytes("cvimage");
-                                    String base64Image = java.util.Base64.getEncoder().encodeToString(cvimage);
-                                    String Image = "data:image/jpeg;base64," + base64Image;
+                                        byte[] cvimage = rs.getBytes("cvimage");
+                                        String base64Image = java.util.Base64.getEncoder().encodeToString(cvimage);
+                                        String Image = "data:image/jpeg;base64," + base64Image;
 
-                        %>
+                            %>
                         <div class="col-sm-6 col-lg-4 col-xl-3">
                             <div class="card shadow h-100">
                                 <!-- Image -->
@@ -189,7 +190,7 @@
                                 <div class="card-body pb-0">
                                     <!-- Play icon -->
                                     <div class="play-icon-container">
-                                        <a href="./?sp_name=cp&cvi=<%= cid%>&cvn=<%= cvideotitle%>"><i class="bi bi-play-fill play-icon"></i></a>
+                                        <a href="./?sp_name=cp&cvi=<%= cid%>&cvn=<%= cvideotitle%>&fid=<%= fid%>"><i class="bi bi-play-fill play-icon"></i></a>
                                     </div>
                                     <!-- Title -->
                                     <h6 class="card-title mt-1"><a href="#"><%= cvideotitle%></a></h6>

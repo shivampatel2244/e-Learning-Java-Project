@@ -112,7 +112,7 @@ Page Banner START -->
 
                                 Connection con = DriverManager.getConnection(Database, Username, "");
                                 Statement st = con.createStatement();
-                                String sql = "SELECT fp.fname, fp.fimage, fp.fqualification, cp.chours, cp.camount, cp.ctype, cp.cname, cp.cimage, cp.cid " +
+                                String sql = "SELECT fp.fid,fp.fname, fp.fimage, fp.fqualification, cp.chours, cp.camount, cp.ctype, cp.cname, cp.cimage, cp.cid " +
                                         "FROM cource_playlist cp " +
                                         "JOIN faculty_profile fp ON cp.cfacultyname = fp.fname " +
                                         "WHERE cp.cid NOT IN (SELECT course_id FROM user_courses WHERE user_id = ?) AND cp.ctype = 'paid'";
@@ -121,6 +121,7 @@ Page Banner START -->
                                 ResultSet rs = pstmt.executeQuery();
 
                                 while (rs.next()) {
+                                    int fid = rs.getInt("fid");
                                     int cid = rs.getInt("cid");
                                     String fname = rs.getString("fname");
                                     String camount = rs.getString("camount");
@@ -156,7 +157,7 @@ Page Banner START -->
                                                 </div>
                                                 <!-- Avatar info -->
                                                 <div class="p-2">
-                                                    <h6 class="mb-0"><a href="instructor-single.html" class="text-dark"><%= fname%></a></h6>
+                                                    <h6 class="mb-0"><a href="?sp_name=fd&fid=<%= fid%>" class="text-dark"><%= fname%></a></h6>
                                                     <span class="small"><%= fqualification%></span>
                                                 </div>
                                             </div>
