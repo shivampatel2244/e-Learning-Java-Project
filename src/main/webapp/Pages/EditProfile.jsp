@@ -111,7 +111,7 @@ Page Banner START -->
                             </div>
                             <!-- Button -->
                             <div class="mt-2 mt-sm-0">
-                                <a href="<%= request.getContextPath() %>/Login.jsp" class="btn btn-outline-danger mb-0"><i class="bi bi-power fa-fw"></i>Sign Out</a>
+                                <a href="?sp_name=ph" class="btn btn-outline-dark mb-0"><i class="fa fa-history fa-fw"></i> Payment History</a>
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@ Page content START -->
                                 <a class="list-group-item active" href="?sp_name=ep"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
                                 <a class="list-group-item" href="?sp_name=se"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
                                 <a class="list-group-item" href="#"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
-                                <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+                                <a class="list-group-item text-danger bg-danger-soft-hover" href="<%= request.getContextPath() %>/Login.jsp"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
 
                             </div>
                         </div>

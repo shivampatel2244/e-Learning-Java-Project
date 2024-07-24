@@ -103,7 +103,7 @@ Page Banner START -->
                             </div>
                             <!-- Button -->
                             <div class="mt-2 mt-sm-0">
-                                <a href="<%= request.getContextPath() %>/Login.jsp" class="btn btn-outline-danger mb-0"><i class="bi bi-power fa-fw"></i>Sign Out</a>
+                                <a href="?sp_name=ph" class="btn btn-outline-dark mb-0"><i class="fa fa-history fa-fw"></i> Payment History</a>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@ Page content START -->
                                 <a class="list-group-item" href="?sp_name=ep"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
                                 <a class="list-group-item active" href="?sp_name=se"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
                                 <a class="list-group-item" href="#"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
-                                <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+                                <a class="list-group-item text-danger bg-danger-soft-hover" href="<%= request.getContextPath() %>/Login.jsp"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
 
                             </div>
                         </div>
@@ -173,12 +173,12 @@ Page content START -->
                                         </div>
                                         <!-- New password -->
                                         <div class="mb-3">
-                                            <label class="form-label"> Enter new password</label>
+                                            <label class="form-label">Enter new password</label>
                                             <div class="input-group">
                                                 <input class="form-control" type="password" name="np" id="newPassword" placeholder="Enter new password" required>
                                                 <span class="input-group-text p-0 bg-transparent">
-                            <i class="far fa-eye cursor-pointer p-2 w-40px" id="toggleNewPassword"></i>
-                        </span>
+                                <i class="far fa-eye cursor-pointer p-2 w-40px" id="toggleNewPassword"></i>
+                            </span>
                                             </div>
                                             <div class="rounded mt-1" id="psw-strength"></div>
                                         </div>
@@ -230,12 +230,31 @@ Page content END -->
                     stopOnFocus: true, // Prevent toast from disappearing on hover
                     className: "custom-toast", // Apply custom class
                 }).showToast();
+
+                // Remove the 'toast' parameter from the URL
+                urlParams.delete('toast');
+                const newUrl = `${window.location.pathname}?sp_name=se`;
+                window.history.replaceState({}, document.title, newUrl);
             } else {
                 console.warn(`Toast type "${toastType}" is not recognized.`);
             }
         };
 
         triggerToastFromURL();
+    });
+
+</script>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        var newPassword = document.getElementById('newPassword').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (newPassword !== confirmPassword) {
+            event.preventDefault();
+            alert('Passwords do not match.');
+            location.reload();
+        }
     });
 
     document.getElementById('toggleNewPassword').addEventListener('click', function () {
