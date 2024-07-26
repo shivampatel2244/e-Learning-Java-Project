@@ -5,7 +5,53 @@
   Time: 11:41 am
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.sql.*" %>
+<%
+    Cookie[] cookies = request.getCookies();
+    String em = null;
+
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("em")) {
+                em = cookie.getValue();
+                break;
+            }
+        }
+    }
+
+    int sid = 0;
+
+
+    String sfname = "";
+    String slname = "";
+    String semail = "";
+
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    try {
+        String Driver = application.getInitParameter("Driver");
+        String Database = application.getInitParameter("Database");
+        String Username = application.getInitParameter("Username");
+        String Password = application.getInitParameter("Password");
+
+        Class.forName(Driver);
+        con = DriverManager.getConnection(Database, Username, Password);
+
+        pst = con.prepareStatement("SELECT * FROM student_registration WHERE semail = ?");
+        pst.setString(1, em);
+        rs = pst.executeQuery();
+
+        if (rs.next()) {
+            sid = rs.getInt("id");
+            sfname = rs.getString("sfname");
+            slname = rs.getString("slname");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+%>
 <html>
 <head>
     <title>Title</title>
@@ -67,21 +113,23 @@ Page Banner START -->
                     <h2 class="mt-2 mt-md-0">Let's talk</h2>
                     <p>To request a quote or want to meet up for coffee, contact us directly or fill out the form and we will get back to you promptly</p>
 
-                    <form action="https://formspree.io/f/xgvwvwyy" method="POST" data-success-url="./?sp_name=cu">
+                    <form action="ContactUsServlet" method="POST">
+
+                        <input type="hidden" name="sid" value="<%= sid%>" />
                         <!-- Name -->
                         <div class="mb-4 bg-light-input">
-                            <label for="yourName" class="form-label">Your name *</label>
-                            <input type="text" class="form-control form-control-lg" name="name" id="yourName">
+                            <label for="yourName" class="form-label">Your Name </label>
+                            <input type="text" class="form-control form-control-lg" name="name" id="yourName" value="<%= sfname%> <%= slname%>" readonly>
                         </div>
                         <!-- Email -->
                         <div class="mb-4 bg-light-input">
-                            <label for="emailInput" class="form-label">Email address *</label>
-                            <input type="email" class="form-control form-control-lg" name="email" id="emailInput">
+                            <label for="emailInput" class="form-label">Email Address</label>
+                            <input type="email" class="form-control form-control-lg" name="email" id="emailInput" value="<%= em%>" readonly>
                         </div>
                         <!-- Message -->
                         <div class="mb-4 bg-light-input">
-                            <label for="textareaBox" class="form-label">Message *</label>
-                            <textarea class="form-control" id="textareaBox" name="message" rows="4"></textarea>
+                            <label for="textareaBox" class="form-label">Message</label>
+                            <textarea class="form-control" id="textareaBox" name="message" rows="4" required></textarea>
                         </div>
                         <!-- Button -->
                         <div class="d-grid">
