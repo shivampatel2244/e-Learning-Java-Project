@@ -29,9 +29,9 @@ public class LoginServlet extends HttpServlet {
             String em = email;
             Cookie cookie = new Cookie("em",em);
             resp.addCookie(cookie);
-            resp.sendRedirect(req.getContextPath() + "/?Header.jsp&sp_name=hm&em=" + em);
+            resp.sendRedirect(req.getContextPath() + "/?sp_name=hm&t=s");
         } else {
-            resp.sendRedirect(req.getContextPath() + "/Login.jsp?s=nl");
+            resp.sendRedirect(req.getContextPath() + "/Login.jsp?t=nl");
         }
     }
 }

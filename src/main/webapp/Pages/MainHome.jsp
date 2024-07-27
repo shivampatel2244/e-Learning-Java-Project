@@ -45,6 +45,8 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 <body>
 
@@ -692,5 +694,70 @@ Client START -->
 </section>
 <!-- =======================
 Client END -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const triggerToastFromURL = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const toastType = urlParams.get('t');
+
+            if (toastType === 's') {
+                Toastify({
+                    text: "✅ Login Successfully",
+                    duration: 3000,
+                    offset: {
+                        x: 10,
+                        y: 10
+                    },
+                    backgroundColor: "",
+                    close: true, // Show close button
+                    gravity: "top", // Toast position: top or bottom
+                    position: "right", // Toast position: left, center or right
+                    stopOnFocus: true, // Prevent toast from disappearing on hover
+                    className: "custom-toast1", // Apply custom class
+                }).showToast();
+
+                // Remove the 'toast' parameter from the URL
+                urlParams.delete('toast');
+                const newUrl = `${window.location.pathname}?sp_name=hm`;
+                window.history.replaceState({}, document.title, newUrl);
+            } else {
+                console.warn(`Toast type "${toastType}" is not recognized.`);
+            }
+        };
+
+        triggerToastFromURL();
+    });
+
+</script>
+<style>
+    /* Custom styles to replicate React Toastify appearance */
+    .custom-toast1 {
+        border-radius: 6px;
+        padding: 12px 20px; /* Padding for better appearance */
+        font-family: 'Poppins', sans-serif; /* Font similar to React Toastify */
+        font-size: 16px; /* Adjust font size if needed */
+        color: green; /* Text color */
+        border-bottom: 2px solid green;
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+
+    .toastify {
+        /* Toastify container styles */
+        background: white;
+    }
+
+    .toast-close{
+        color: green !important; /* Close button color */
+        font-size: 16px; /* Adjust close button size */
+        font-weight: bold;
+    }
+    .toastify .toastify-close:hover {
+        color: #ccc; /* Change color on hover */
+    }
+
+</style>
+
 </body>
 </html>
