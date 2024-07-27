@@ -279,30 +279,24 @@ Page content END -->
         padding: 12px 20px; /* Padding for better appearance */
         font-family: 'Poppins', sans-serif; /* Font similar to React Toastify */
         font-size: 16px; /* Adjust font size if needed */
-        color: #ffffff; /* Text color */
+        color: green; /* Text color */
         border-bottom: 2px solid green;
         box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-        /*box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px; !* Slight shadow for better visibility *!*/
     }
 
     .toastify {
         /* Toastify container styles */
-        background: linear-gradient(to right, #00b09b, #96c93d) !important; /* Background color */
+        background: white;
     }
 
-    .toastify .toastify-close {
-        color: #ffffff; /* Close button color */
+    .toast-close{
+        color: green !important; /* Close button color */
         font-size: 16px; /* Adjust close button size */
     }
-
     .toastify .toastify-close:hover {
         color: #ccc; /* Change color on hover */
     }
 
-    /* Override default Toastify styles to match custom look */
-    .toastify .toastify-body {
-        color: #ffffff; /* Text color */
-    }
 </style>
 
 <%--<script>--%>

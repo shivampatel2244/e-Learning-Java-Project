@@ -585,7 +585,7 @@ Instructor START -->
                         <!-- Card body -->
                         <div class="card-body text-center">
                             <!-- Title -->
-                            <h5 class="card-title"><a href="#"><%= FactName%></a></h5>
+                            <h5 class="card-title"><a href="?sp_name=fd&fid=<%= FactId%>"><%= FactName%></a></h5>
                             <p class="mb-2"><%= FactDesignation%></p>
                         </div>
                     </div>
